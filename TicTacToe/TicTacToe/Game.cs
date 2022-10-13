@@ -22,20 +22,10 @@ namespace TicTacToe
                 return table;
             }
         }
-        public bool Done
-        {
-            get
-            {
-                return Winner != CellContent.empty;
-            }
-        }
-        public CellContent Winner
-        {
-            get
-            {
-                return CellContent.empty;
-            }
-        }
+
+		public bool Done { get; set; }
+        public CellContent Winner { get; set; }
+
         public CellContent NextCellContent
         {
             get
@@ -48,13 +38,148 @@ namespace TicTacToe
         {
             if (dimension < 3) throw new Exception("Dimension must be greater or equal to 3!");
             table = new CellContent[dimension, dimension];
+            Done = false;
             InitializeTable(dimension);
         }
 
-        public void WriteCellContent(CellContent cellContent, int x, int y)
+        public void CheckIsGameOver()
         {
+            if (CheckDiagonalValues() || CheckRowValues() || CheckColValues())
+            {
+                Done = true;
+            }
+            else
+            {
+                Done = false;
+            }
+        }
+
+        private bool CheckColValues()
+        {
+
+            int counterX = 0, counterY = 0;
+
+            for (int j = 0; j < TableDimension; ++j)
+            {
+                counterX = 0;
+                counterY = 0;
+
+                for (int i = 0; i < TableDimension; ++i)
+                {
+
+                    if (Table[i, j] == CellContent.X)
+                    {
+                        counterX++;
+                    }
+                    else if (Table[i, j] == CellContent.O)
+                    {
+                        counterY++;
+                    }
+                }
+
+                if (counterX >= TableDimension)
+                {
+                    Winner = CellContent.X;
+                    return true;
+
+                }
+                else if (counterY >= TableDimension)
+                {
+                    Winner = CellContent.O;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckRowValues()
+        {
+
+            int counterX = 0, counterY = 0;
+
+            for (int i = 0; i < TableDimension; ++i)
+            {
+                counterX = 0;
+                counterY = 0;
+                for (int j = 0; j < TableDimension; ++j)
+                {
+
+                    if (Table[i, j] == CellContent.X)
+                    {
+                        counterX++;
+                    }
+                    else if (Table[i, j] == CellContent.O)
+                    {
+                        counterY++;
+                    }
+                }
+
+                if (counterX >= TableDimension)
+                {
+                    Winner = CellContent.X;
+                    return true;
+
+                }
+                else if (counterY >= TableDimension)
+                {
+                    Winner = CellContent.O;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckDiagonalValues()
+        {
+            int counterX = 0, counterY = 0;
+
+            for (int i = 0; i < TableDimension; ++i)
+            {
+                for (int j = 0; j < TableDimension; ++j)
+                {
+                    if (i != j) continue;
+
+                    if (Table[i, j] == CellContent.X)
+                    {
+                        counterX++;
+                    }
+                    else if (Table[i, j] == CellContent.O)
+                    {
+                        counterY++;
+                    }
+                }
+            }
+
+            if (counterX >= TableDimension)
+            {
+                Winner = CellContent.X;
+                return true;
+
+            }
+            else if (counterY >= TableDimension)
+            {
+                Winner = CellContent.O;
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+        public bool WriteCellContent(CellContent cellContent, int x, int y)
+        {
+            if (x > TableDimension - 1 || y > TableDimension - 1 || table[x, y] != CellContent.empty)
+            {
+                return false;
+            }
+
             table[x, y] = cellContent;
             UpdateNextCellContent();
+
+            return true;
         }
 
         private void UpdateNextCellContent()

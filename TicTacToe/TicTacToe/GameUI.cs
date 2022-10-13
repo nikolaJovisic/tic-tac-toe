@@ -17,12 +17,19 @@ namespace TicTacToe
             while (!game.Done)
             {
                 Turn();
+                IsGameOver();
             }
             End();
         }
 
+        private void IsGameOver()
+        {
+           game.CheckIsGameOver();
+        }
+
         private void End()
         {
+            PrintTable();
             Console.WriteLine("Game finished, winner is {0}", CellContentToString(game.Winner));
         }
 
@@ -30,11 +37,44 @@ namespace TicTacToe
         {
             Console.WriteLine("{0} turn ->", CellContentToString(game.NextCellContent));
             PrintTable();
-            Console.WriteLine("x coordinate:");
-            int x = int.Parse(Console.ReadLine());
-            Console.WriteLine("y coordinate:");
-            int y = int.Parse(Console.ReadLine());
-            game.WriteCellContent(game.NextCellContent, x, y);
+
+            bool isValid = false;
+            int x = 0 , y = 0;
+
+
+            while (!isValid)
+            {
+                Console.WriteLine("x coordinate:");
+                try
+                {
+                    x = int.Parse(Console.ReadLine().Trim());
+                }
+                catch (FormatException)
+                {
+					Console.WriteLine("Invalid input");
+                    continue;
+                }
+
+                Console.WriteLine("y coordinate:");
+                try
+                {
+                    y = int.Parse(Console.ReadLine().Trim());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input");
+                    continue;
+                }
+
+                
+                isValid = game.WriteCellContent(game.NextCellContent, x - 1, y - 1);
+
+                if (!isValid)
+                {
+					Console.WriteLine("Invalid input");
+                }
+
+            }
         }
 
         private void PrintTable()
