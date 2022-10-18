@@ -9,7 +9,7 @@ namespace TicTacToeTests
         [Fact]
         public void TooSmallDimensionThrowsException()
         {
-            Assert.Throws<Exception>(() => new Game(2));
+            Assert.Throws<Exception>(() => new Game());
         }
 
 
