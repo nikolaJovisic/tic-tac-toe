@@ -44,25 +44,16 @@ namespace TicTacToe
 
             while (!isValid)
             {
-                Console.WriteLine("x coordinate:");
+                Console.WriteLine("Input (format a2, b3 etc.):");
+                string input = Console.ReadLine();
+                y = (char)input[0] - 'a' + 1;
                 try
                 {
-                    x = int.Parse(Console.ReadLine().Trim());
+                    x = int.Parse(input.Substring(1));
                 }
                 catch (FormatException)
                 {
 					Console.WriteLine("Invalid input");
-                    continue;
-                }
-
-                Console.WriteLine("y coordinate:");
-                try
-                {
-                    y = int.Parse(Console.ReadLine().Trim());
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Invalid input");
                     continue;
                 }
 
@@ -79,8 +70,21 @@ namespace TicTacToe
 
         private void PrintTable()
         {
+            Console.Write("| ");
             for (int i = 0; i < game.TableDimension; ++i)
             {
+                Console.Write("|{0}", GetLetter(i));
+            }
+            Console.WriteLine("|");
+            Console.Write("----");
+            for (int j = 0; j < game.TableDimension - 2; ++j)
+            {
+                Console.Write("---");
+            }
+            Console.WriteLine();
+            for (int i = 0; i < game.TableDimension; ++i)
+            {
+                Console.Write("|{0}", i + 1);
                 for (int j = 0; j < game.TableDimension; ++j)
                 {
                     Console.Write("|{0}", CellContentToString(game.Table[i, j]));
@@ -93,6 +97,11 @@ namespace TicTacToe
                 }
                 Console.WriteLine();
             }
+        }
+
+        public char GetLetter(int value)
+        {
+            return (char)('a' + value);
         }
 
         private string CellContentToString(CellContent cellContent)

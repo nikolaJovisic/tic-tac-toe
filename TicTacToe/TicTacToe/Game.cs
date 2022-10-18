@@ -12,7 +12,7 @@ namespace TicTacToe
         {
             get
             {
-                return table.GetLongLength(0);
+                return 3;
             }
         }
         public CellContent[,] Table
@@ -34,12 +34,11 @@ namespace TicTacToe
             }
         }
 
-        public Game(long dimension)
+        public Game()
         {
-            if (dimension < 3) throw new Exception("Dimension must be greater or equal to 3!");
-            table = new CellContent[dimension, dimension];
+            table = new CellContent[TableDimension, TableDimension];
             Done = false;
-            InitializeTable(dimension);
+            InitializeTable(TableDimension);
         }
 
         public void CheckIsGameOver()

@@ -16,7 +16,7 @@ namespace TicTacToeTests
         [Fact]
         public void OutOfBoundsInputValue()
         {
-            Game game = new Game(3);
+            Game game = new Game();
 
             bool flag = game.WriteCellContent(CellContent.X, 11, 12);
 
@@ -27,7 +27,7 @@ namespace TicTacToeTests
         public void GameOver()
         {
 
-            Game game = new Game(3);
+            Game game = new Game();
 
             game.Table[0, 0] = CellContent.X;
             game.Table[1, 1] = CellContent.X;
@@ -42,7 +42,7 @@ namespace TicTacToeTests
         [Fact]
         public void WinnerXGameOverDiagonal()
         {
-            Game game = new Game(3);
+            Game game = new Game();
 
             game.Table[0, 0] = CellContent.X;
             game.Table[1, 1] = CellContent.X;
@@ -56,7 +56,7 @@ namespace TicTacToeTests
         [Fact]
         public void WinnerOGameOverDiagonal()
         {
-            Game game = new Game(3);
+            Game game = new Game();
 
             game.Table[0, 0] = CellContent.O;
             game.Table[1, 1] = CellContent.O;
@@ -70,7 +70,7 @@ namespace TicTacToeTests
         [Fact]
         public void WinnerXGameOverRow()
         {
-            Game game = new Game(3);
+            Game game = new Game();
 
             game.Table[0, 0] = CellContent.X;
             game.Table[0, 1] = CellContent.X;
@@ -84,7 +84,7 @@ namespace TicTacToeTests
         [Fact]
         public void WinnerOGameOverRow()
         {
-            Game game = new Game(3);
+            Game game = new Game();
 
             game.Table[0, 0] = CellContent.O;
             game.Table[0, 1] = CellContent.O;
@@ -98,7 +98,7 @@ namespace TicTacToeTests
         [Fact]
         public void WinnerXGameOverCol ()
         {
-            Game game = new Game(3);
+            Game game = new Game();
 
             game.Table[0, 0] = CellContent.X;
             game.Table[1, 0] = CellContent.X;
@@ -112,7 +112,7 @@ namespace TicTacToeTests
         [Fact]
         public void WinnerOGameOverCol()
         {
-            Game game = new Game(3);
+            Game game = new Game();
 
             game.Table[0, 0] = CellContent.O;
             game.Table[1, 0] = CellContent.O;
