@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicTacToe
 {
-    class GameUI
+    public class GameUI
     {
         private Game game;
         public GameUI(Game game)
@@ -45,19 +45,15 @@ namespace TicTacToe
             while (!isValid)
             {
                 Console.WriteLine("Input (format a2, b3 etc.):");
-                string input = Console.ReadLine();
-                y = (char)input[0] - 'a' + 1;
-                try
-                {
-                    x = int.Parse(input.Substring(1));
-                }
-                catch (FormatException)
-                {
-					Console.WriteLine("Invalid input");
-                    continue;
-                }
 
-                
+                string input = Console.ReadLine();
+
+                x = getXCoordinate(input);
+                if (x == -1) continue;
+
+                y = getYCoordinate(input);
+                if (y == -1) continue;
+
                 isValid = game.WriteCellContent(game.NextCellContent, x - 1, y - 1);
 
                 if (!isValid)
@@ -67,6 +63,39 @@ namespace TicTacToe
 
             }
         }
+
+        public int getXCoordinate(string input)
+        {
+            int x = -1;
+
+            try
+            {
+                x = int.Parse(input.Substring(1));
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input");
+                x = - 1;
+            }
+
+            return x;
+        }
+
+        public int getYCoordinate(string input)
+        {
+            int y = -1;
+
+            y = (char)input[0] - 'a' + 1;
+
+            if (Math.Abs(y) > game.TableDimension)
+            {
+                y = -1;
+                Console.WriteLine("Invalid input");
+            }
+
+            return y;
+        }
+
 
         private void PrintTable()
         {

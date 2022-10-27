@@ -18,6 +18,53 @@ namespace TicTacToeTests
             Assert.False(flag);
         }
 
+
+        [Fact]
+        public void InvalidXValue()
+        {
+            Game game = new Game();
+            GameUI ui = new GameUI(game);
+;
+            int x = ui.getXCoordinate(" ");
+
+            Assert.Equal(-1, x);
+        }
+
+        [Fact]
+        public void GoodXValue()
+        {
+            Game game = new Game();
+            GameUI ui = new GameUI(game);
+
+            int x = ui.getXCoordinate("a3");
+
+            Assert.Equal(3, x);
+        }
+
+
+        [Fact]
+        public void InvalidYValue()
+        {
+            Game game = new Game();
+            GameUI ui = new GameUI(game);
+
+            int y = ui.getYCoordinate(" ");
+
+            Assert.Equal(-1, y);
+        }
+
+        [Fact]
+        public void GoodYValue()
+        {
+            Game game = new Game();
+            GameUI ui = new GameUI(game);
+
+            int y = ui.getYCoordinate("d3");
+
+            Assert.Equal(-1, y);
+        }
+
+
         [Fact]
         public void GameOver()
         {
@@ -118,6 +165,7 @@ namespace TicTacToeTests
             Assert.Equal(CellContent.O, game.Winner);
         }
 
+     
 
     }
 }
