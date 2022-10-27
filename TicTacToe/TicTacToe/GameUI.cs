@@ -99,27 +99,30 @@ namespace TicTacToe
 
         private void PrintTable()
         {
-            Console.Write("| ");
+            Console.Write("  ");
             for (int i = 0; i < game.TableDimension; ++i)
             {
-                Console.Write("|{0}", GetLetter(i));
+                Console.Write(" {0}", GetLetter(i));
             }
-            Console.WriteLine("|");
-            Console.Write("----");
-            for (int j = 0; j < game.TableDimension - 2; ++j)
+			Console.WriteLine();
+        
+            for (int j = 0; j < game.TableDimension - 1; ++j)
             {
+				if (j == 0) Console.Write("  -");
+
                 Console.Write("---");
             }
+
             Console.WriteLine();
             for (int i = 0; i < game.TableDimension; ++i)
             {
-                Console.Write("|{0}", i + 1);
+                Console.Write("{0} ", i + 1);
                 for (int j = 0; j < game.TableDimension; ++j)
                 {
                     Console.Write("|{0}", CellContentToString(game.Table[i, j]));
                 }
                 Console.WriteLine("|");
-                Console.Write("----");
+                Console.Write("  ----");
                 for (int j = 0; j < game.TableDimension - 2; ++j)
                 {
                     Console.Write("---");
