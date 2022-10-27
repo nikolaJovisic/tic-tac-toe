@@ -11,10 +11,7 @@ namespace TicTacToe
         private Ranking rank = new Ranking("scores.bin");
         private Player player1 = new Player();
         private Player player2 = new Player();
-
-
-
-		
+	
 		public long TableDimension
         {
             get
@@ -196,6 +193,12 @@ namespace TicTacToe
         private void UpdateNextCellContent()
         {
             nextCellContent = nextCellContent == CellContent.X ? CellContent.O : CellContent.X;
+        }
+
+        public void CleanForRematch()
+        {
+            InitializeTable(TableDimension);
+            Done = false;
         }
 
         private void InitializeTable(long dimension)

@@ -34,6 +34,7 @@ namespace TicTacToe
                 switch (option)
                 {
                     case 1:
+                        GetPlayerInfo();
                         Play();
                         break;
 
@@ -54,13 +55,19 @@ namespace TicTacToe
 
 		private void Rematch()
 		{
-			throw new NotImplementedException();
-		}
+            Player temp = game.Player1;
+            game.Player1 = game.Player2;
+            game.Player2 = temp;
+            game.CleanForRematch();
+         
+            Play();
+        }
 
 		private void ShowHighscores()
 		{
-			throw new NotImplementedException();
-		}
+            var r = new Ranking("scores.bin");
+            r.Display(game.Player1.Name, game.Player2.Name);
+        }
 
         private void GetPlayerInfo()
         {
@@ -76,7 +83,6 @@ namespace TicTacToe
 
         public void Play()
         {
-            GetPlayerInfo();
             string name = game.Player2.Name;
 
             while (!game.Done)
