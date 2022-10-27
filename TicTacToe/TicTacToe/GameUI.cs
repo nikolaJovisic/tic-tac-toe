@@ -104,21 +104,21 @@ namespace TicTacToe
             PrintTable();
             string winner = "";
 
-			if (game.Player1.Shape == game.Winner)
-			{
-				winner = game.Player1.Name;
-                game.Player1.Score.GameFinishedUpdate(1);
-                game.Player2.Score.GameFinishedUpdate(0);
+            if (game.Player1.Shape == game.Winner)
+            {
+                winner = game.Player1.Name;
+                ranking.GameFinishedUpdate(game.Player1.Name, 1);
+                ranking.GameFinishedUpdate(game.Player2.Name, 0);
             }
-			else
-			{
-				winner = game.Player2.Name;
-                game.Player2.Score.GameFinishedUpdate(1);
-                game.Player1.Score.GameFinishedUpdate(0);
+            else
+            {
+                winner = game.Player2.Name;
+                ranking.GameFinishedUpdate(game.Player2.Name, 1);
+                ranking.GameFinishedUpdate(game.Player1.Name, 0);
             }
 
 			Console.WriteLine("Game finished, winner is {0}", winner);
-
+   
             ranking.Serialize("scores.bin");
         }
 
