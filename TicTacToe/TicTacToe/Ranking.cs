@@ -15,7 +15,14 @@ namespace TicTacToe
         }
         public Ranking (string path)
         {
-            scores = Serialization.Deserialize<Dictionary<string, PlayerScore>>(File.Open(path, FileMode.Open));
+            try
+            {
+                scores = Serialization.Deserialize<Dictionary<string, PlayerScore>>(File.Open(path, FileMode.Open));
+            }
+            catch (Exception)
+            {
+                scores = new Dictionary<string, PlayerScore>();
+            }
         }
         public void GameFinishedUpdate(string name, int pointsDelta)
         {
@@ -52,7 +59,7 @@ namespace TicTacToe
                 }
                 else if (entry.Key.Equals(player2))
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-8}|{4,-8}| <----- Player2", i + 1, player2, entry.Value.Points/10, entry.Value.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-8}|{4,-8}| <----- Player2", i + 1, player2, entry.Value.Points/10, entry.Value.Points % 10, entry.Value.GamesPlayed));
                 }
                 else if (i < Console.WindowHeight - 6)
                 {
