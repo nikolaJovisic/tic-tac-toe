@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace TicTacToe
 {
@@ -51,7 +52,7 @@ namespace TicTacToe
 
         public void CheckIsGameOver()
         {
-            if (CheckDiagonalValues() || CheckRowValues() || CheckColValues())
+            if (CheckDiagonalValues() || CheckRowValues() || CheckColValues() || CheckDraw())
             {
                 Done = true;
 
@@ -60,6 +61,19 @@ namespace TicTacToe
             {
                 Done = false;
             }
+        }
+
+        private bool CheckDraw()
+        {
+            foreach (var cellContent in table)
+            {
+                if (cellContent.Equals(CellContent.empty))
+                {
+                    return false;
+                }
+            }
+            Winner = CellContent.empty;
+            return true;
         }
 
         private bool CheckColValues()
@@ -195,7 +209,7 @@ namespace TicTacToe
             nextCellContent = nextCellContent == CellContent.X ? CellContent.O : CellContent.X;
         }
 
-        public void CleanForRematch()
+        public void Clean()
         {
             InitializeTable(TableDimension);
             Done = false;

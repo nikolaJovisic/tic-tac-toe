@@ -59,7 +59,7 @@ namespace TicTacToe
             Player temp = game.Player1;
             game.Player1 = game.Player2;
             game.Player2 = temp;
-            game.CleanForRematch();
+            game.Clean();
          
             Play();
         }
@@ -83,6 +83,7 @@ namespace TicTacToe
 
         public void Play()
         {
+            game.Clean();
             string name = game.Player2.Name;
 
             while (!game.Done)
@@ -104,17 +105,23 @@ namespace TicTacToe
             PrintTable();
             string winner = "";
 
-            if (game.Player1.Shape == game.Winner)
-            {
-                winner = game.Player1.Name;
-                ranking.GameFinishedUpdate(game.Player1.Name, 1);
+			if (game.Player1.Shape == game.Winner)
+			{
+				winner = game.Player1.Name;
+                ranking.GameFinishedUpdate(game.Player1.Name, 10);
                 ranking.GameFinishedUpdate(game.Player2.Name, 0);
-            }
+			}
+			else if (game.Player2.Shape == game.Winner)
+            {
+				winner = game.Player2.Name;
+                ranking.GameFinishedUpdate(game.Player2.Name, 10);
+                ranking.GameFinishedUpdate(game.Player1.Name, 0);
+			}
             else
             {
-                winner = game.Player2.Name;
-                ranking.GameFinishedUpdate(game.Player2.Name, 1);
-                ranking.GameFinishedUpdate(game.Player1.Name, 0);
+                winner = "not decided, it is a draw.";
+                ranking.GameFinishedUpdate(game.Player2.Name, 5);
+                ranking.GameFinishedUpdate(game.Player1.Name, 5);
             }
 
 			Console.WriteLine("Game finished, winner is {0}", winner);
