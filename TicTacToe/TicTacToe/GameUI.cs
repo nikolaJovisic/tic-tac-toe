@@ -7,7 +7,6 @@ namespace TicTacToe
     public class GameUI
     {
         private Game game;
-        private Ranking ranking = new Ranking("scores.bin");
 
         public GameUI(Game game)
         {
@@ -66,7 +65,7 @@ namespace TicTacToe
 
 		private void ShowHighscores()
 		{
-            ranking.Display(game.Player1.Name, game.Player2.Name);
+            game.Rank.Display(game.Player1.Name, game.Player2.Name);
         }
 
         private void GetPlayerInfo()
@@ -108,25 +107,25 @@ namespace TicTacToe
 			if (game.Player1.Shape == game.Winner)
 			{
 				winner = game.Player1.Name;
-                ranking.GameFinishedUpdate(game.Player1.Name, 10);
-                ranking.GameFinishedUpdate(game.Player2.Name, 0);
+                game.Rank.GameFinishedUpdate(game.Player1.Name, 10);
+                game.Rank.GameFinishedUpdate(game.Player2.Name, 0);
 			}
 			else if (game.Player2.Shape == game.Winner)
             {
 				winner = game.Player2.Name;
-                ranking.GameFinishedUpdate(game.Player2.Name, 10);
-                ranking.GameFinishedUpdate(game.Player1.Name, 0);
+                game.Rank.GameFinishedUpdate(game.Player2.Name, 10);
+                game.Rank.GameFinishedUpdate(game.Player1.Name, 0);
 			}
             else
             {
                 winner = "not decided, it is a draw.";
-                ranking.GameFinishedUpdate(game.Player2.Name, 5);
-                ranking.GameFinishedUpdate(game.Player1.Name, 5);
+                game.Rank.GameFinishedUpdate(game.Player2.Name, 5);
+                game.Rank.GameFinishedUpdate(game.Player1.Name, 5);
             }
 
 			Console.WriteLine("Game finished, winner is {0}", winner);
-   
-            ranking.Serialize("scores.bin");
+
+            game.Rank.Serialize("scores.bin");
         }
 
   
