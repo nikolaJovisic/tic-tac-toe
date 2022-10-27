@@ -67,7 +67,7 @@ namespace TicTacToe
 
 			Game game = new Game();
 			GameUI UI = new GameUI(game);
-			UI.Play();
+			UI.Menu();
 		}
     }
 }

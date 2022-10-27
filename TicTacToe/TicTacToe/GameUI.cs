@@ -7,16 +7,82 @@ namespace TicTacToe
     public class GameUI
     {
         private Game game;
+       
         public GameUI(Game game)
         {
             this.game = game;
         }
 
+        public void Menu()
+        {
+            while (true)
+            {
+                Console.WriteLine(" X vs O - THE GAME ");
+                Console.WriteLine("-------------------");
+                Console.WriteLine(" 1. NEW GAME \n 2. HIGHSCORES \n 3. REMATCH ");
+                int option = 0;
+
+                try
+                {
+                    option = Int32.Parse(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input");
+                }
+
+                switch (option)
+                {
+                    case 1:
+                        Play();
+                        break;
+
+                    case 2:
+                        ShowHighscores();
+                        break;
+
+                    case 3:
+                        Rematch();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        }
+
+		private void Rematch()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void ShowHighscores()
+		{
+			throw new NotImplementedException();
+		}
+
+        private void GetPlayerInfo()
+        {
+			Console.WriteLine("Enter name of Player 1 (X): ");
+            game.Player1.Name = Console.ReadLine();
+            game.Player1.Shape = CellContent.X;
+
+			Console.WriteLine("Enter name of Player 2 (O): ");
+            game.Player2.Name = Console.ReadLine();
+            game.Player2.Shape = CellContent.O;
+
+        }
+
         public void Play()
         {
+            GetPlayerInfo();
+            string name = game.Player2.Name;
+
             while (!game.Done)
             {
-                Turn();
+                name = name == game.Player2.Name ? game.Player1.Name : game.Player2.Name; 
+                Turn(name);
                 IsGameOver();
             }
             End();
@@ -30,12 +96,25 @@ namespace TicTacToe
         private void End()
         {
             PrintTable();
-            Console.WriteLine("Game finished, winner is {0}", CellContentToString(game.Winner));
+            string winner = "";
+
+			if (game.Player1.Shape == game.Winner)
+			{
+				winner = game.Player1.Name;
+			}
+			else
+			{
+				winner = game.Player2.Name;
+			}
+
+			Console.WriteLine("Game finished, winner is {0}", winner);
         }
 
-        private void Turn()
+  
+
+        private void Turn(string player)
         {
-            Console.WriteLine("{0} turn ->", CellContentToString(game.NextCellContent));
+            Console.WriteLine("{0} ({1}) turn ->", CellContentToString(game.NextCellContent), player);
             PrintTable();
 
             bool isValid = false;

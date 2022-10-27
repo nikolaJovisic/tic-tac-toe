@@ -8,7 +8,14 @@ namespace TicTacToe
     {
         private readonly CellContent[,] table;
         private CellContent nextCellContent = CellContent.X;
-        public long TableDimension
+        private Ranking rank = new Ranking("scores.bin");
+        private Player player1 = new Player();
+        private Player player2 = new Player();
+
+
+
+		
+		public long TableDimension
         {
             get
             {
@@ -34,10 +41,14 @@ namespace TicTacToe
             }
         }
 
-        public Game()
+		internal Ranking Rank { get => rank; set => rank = value; }
+		internal Player Player1 { get => player1; set => player1 = value; }
+		internal Player Player2 { get => player2; set => player2 = value; }
+
+		public Game()
         {
             table = new CellContent[TableDimension, TableDimension];
-            Done = false;
+            Done = false;      
             InitializeTable(TableDimension);
         }
 
@@ -46,6 +57,7 @@ namespace TicTacToe
             if (CheckDiagonalValues() || CheckRowValues() || CheckColValues())
             {
                 Done = true;
+
             }
             else
             {
