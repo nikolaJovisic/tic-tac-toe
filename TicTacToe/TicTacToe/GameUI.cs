@@ -7,7 +7,8 @@ namespace TicTacToe
     public class GameUI
     {
         private Game game;
-       
+        private Ranking ranking = new Ranking("scores.bin");
+
         public GameUI(Game game)
         {
             this.game = game;
@@ -65,8 +66,7 @@ namespace TicTacToe
 
 		private void ShowHighscores()
 		{
-            var r = new Ranking("scores.bin");
-            r.Display(game.Player1.Name, game.Player2.Name);
+            ranking.Display(game.Player1.Name, game.Player2.Name);
         }
 
         private void GetPlayerInfo()
@@ -107,13 +107,19 @@ namespace TicTacToe
 			if (game.Player1.Shape == game.Winner)
 			{
 				winner = game.Player1.Name;
-			}
+                game.Player1.Score.GameFinishedUpdate(1);
+                game.Player2.Score.GameFinishedUpdate(0);
+            }
 			else
 			{
 				winner = game.Player2.Name;
-			}
+                game.Player2.Score.GameFinishedUpdate(1);
+                game.Player1.Score.GameFinishedUpdate(0);
+            }
 
 			Console.WriteLine("Game finished, winner is {0}", winner);
+
+            ranking.Serialize("scores.bin");
         }
 
   

@@ -56,7 +56,7 @@ namespace TicTacToe
                 }
                 else if (i < Console.WindowHeight - 7)
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2,-8}|{3,-8}|", i + 1, entry.Key, entry.Value.Points, entry.Value.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2,-8}|{3,-8}|", i + 1, null, entry.Key, entry.Value.Points, entry.Value.GamesPlayed));
                 }
             }
             Console.WriteLine("Press any key to continue...");

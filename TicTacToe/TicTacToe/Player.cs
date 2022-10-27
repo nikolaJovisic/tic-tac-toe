@@ -22,7 +22,7 @@ namespace TicTacToe
 			set { shape = value; }
 		}
 
-		private PlayerScore score;
+		private PlayerScore score = new PlayerScore();
 
 		public PlayerScore Score
 		{
