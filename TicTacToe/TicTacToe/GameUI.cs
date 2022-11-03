@@ -55,9 +55,11 @@ namespace TicTacToe
 
 		private void Rematch()
 		{
+            game.Player1.Shape = game.Player1.Shape == CellContent.X ? CellContent.O : CellContent.X;
+            game.Player2.Shape = game.Player2.Shape == CellContent.X ? CellContent.O : CellContent.X;
             Player temp = game.Player1;
-            game.Player1 = game.Player2;
-            game.Player2 = temp;
+			game.Player1 = game.Player2;
+			game.Player2 = temp;
             game.Clean();
          
             Play();
@@ -83,12 +85,12 @@ namespace TicTacToe
         public void Play()
         {
             game.Clean();
-            string name = game.Player2.Name;
+            Player temp = game.Player2;
 
             while (!game.Done)
             {
-                name = name == game.Player2.Name ? game.Player1.Name : game.Player2.Name; 
-                Turn(name);
+                temp = temp == game.Player2 ? game.Player1 : game.Player2;
+                Turn(temp);
                 IsGameOver();
             }
             End();
@@ -130,9 +132,9 @@ namespace TicTacToe
 
   
 
-        private void Turn(string player)
+        private void Turn(Player player)
         {
-            Console.WriteLine("{0} ({1}) turn ->", CellContentToString(game.NextCellContent), player);
+            Console.WriteLine("{0} ({1}) turn ->", CellContentToString(player.Shape), player.Name);
             PrintTable();
 
             bool isValid = false;
@@ -151,7 +153,7 @@ namespace TicTacToe
                 y = getYCoordinate(input);
                 if (y == -1) continue;
 
-                isValid = game.WriteCellContent(game.NextCellContent, x - 1, y - 1);
+                isValid = game.WriteCellContent(player.Shape, x - 1, y - 1);
 
                 if (!isValid)
                 {

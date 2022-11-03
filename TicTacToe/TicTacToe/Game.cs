@@ -20,6 +20,7 @@ namespace TicTacToe
                 return 3;
             }
         }
+        
         public CellContent[,] Table
         {
             get

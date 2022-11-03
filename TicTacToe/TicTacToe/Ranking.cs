@@ -57,15 +57,15 @@ namespace TicTacToe
                 if (i != 0 && entry.Value.Points < ranking.ElementAt(i - 1).Value.Points) ++rank;
                 if (entry.Key.Equals(player1))
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-8}|{4,-8}| <----- Player1", rank, player1, entry.Value.Points/10, entry.Value.Points%10, entry.Value.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-}|{4,-8}| <----- Player1", rank, player1, entry.Value.Points/10, entry.Value.Points%10, entry.Value.GamesPlayed));
                 }
                 else if (entry.Key.Equals(player2))
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-8}|{4,-8}| <----- Player2", rank, player2, entry.Value.Points/10, entry.Value.Points % 10, entry.Value.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}| <----- Player2", rank, player2, entry.Value.Points/10, entry.Value.Points % 10, entry.Value.GamesPlayed));
                 }
                 else if (i < Console.WindowHeight - 6)
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-8}|{4,-8}|", rank, entry.Key, entry.Value.Points/10, entry.Value.Points % 10, entry.Value.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}|", rank, entry.Key, entry.Value.Points/10, entry.Value.Points % 10, entry.Value.GamesPlayed));
                 }
             }
             Console.WriteLine("Press any key to continue...");
