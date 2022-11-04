@@ -21,25 +21,5 @@ namespace TicTacToe
 			get { return shape; }
 			set { shape = value; }
 		}
-
-		private PlayerScore score = new PlayerScore();
-
-		public PlayerScore Score
-		{
-			get { return score; }
-			set { score = value; }
-		}
-
-		public Player(string name, CellContent shape, PlayerScore score)
-		{
-			Name = name;
-			Shape = shape;
-			Score = score;
-		}
-
-		public Player()
-		{
-
-		}
 	}
 }
