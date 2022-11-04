@@ -46,6 +46,7 @@ namespace TicTacToe
 
 		public Game()
         {
+            /*
             rank.GameFinishedUpdate("a", 50);
             rank.GameFinishedUpdate("b", 50);
             rank.GameFinishedUpdate("q", 50);
@@ -54,6 +55,7 @@ namespace TicTacToe
             rank.GameFinishedUpdate("r", 30);
             rank.GameFinishedUpdate("t", 30);
             rank.GameFinishedUpdate("f", 30);
+            */
 
             table = new CellContent[TableDimension, TableDimension];
             Done = false;      
