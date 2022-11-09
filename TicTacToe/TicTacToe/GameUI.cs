@@ -108,21 +108,15 @@ namespace TicTacToe
 
 			if (game.Player1.Shape == game.Winner)
 			{
-				winner = game.Player1.Name;
-                game.Rank.GameFinishedUpdate(game.Player1.Name, 10);
-                game.Rank.GameFinishedUpdate(game.Player2.Name, 0);
+                game.Rank.WinnedGameFinishedUpdate(game.Player1.Name, game.Player2.Name);
 			}
 			else if (game.Player2.Shape == game.Winner)
             {
-				winner = game.Player2.Name;
-                game.Rank.GameFinishedUpdate(game.Player2.Name, 10);
-                game.Rank.GameFinishedUpdate(game.Player1.Name, 0);
-			}
+                game.Rank.WinnedGameFinishedUpdate(game.Player2.Name, game.Player1.Name);
+            }
             else
             {
-                winner = "not decided, it is a draw.";
-                game.Rank.GameFinishedUpdate(game.Player2.Name, 5);
-                game.Rank.GameFinishedUpdate(game.Player1.Name, 5);
+                game.Rank.DrawGameFinishedUpdate(game.Player1.Name, game.Player2.Name);
             }
 
 			Console.WriteLine("Game finished, winner is {0}", winner);

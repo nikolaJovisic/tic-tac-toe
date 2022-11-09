@@ -6,7 +6,7 @@ using System.IO;
 
 namespace TicTacToe
 {
-    class Ranking
+    public class Ranking
     {
         Dictionary<string, PlayerScore> scores;
         public Ranking()
@@ -24,15 +24,28 @@ namespace TicTacToe
                 scores = new Dictionary<string, PlayerScore>();
             }
         }
-        public void GameFinishedUpdate(string name, int pointsDelta)
+        public void DrawGameFinishedUpdate(string player1, string player2)
+        {
+            UpdatePlayer(player1, 5);
+            UpdatePlayer(player2, 5);
+        }
+
+
+        public void WinnedGameFinishedUpdate(string winner, string loser)
+        {
+            UpdatePlayer(winner, 10);
+            UpdatePlayer(loser, 0);
+        }
+
+        public void UpdatePlayer(string player, int points)
         {
             PlayerScore score;
-            if(!scores.TryGetValue(name, out score))
+            if (!scores.TryGetValue(player, out score))
             {
-                score = new PlayerScore(name);
+                score = new PlayerScore(player);
             }
-            score.GameFinishedUpdate(pointsDelta);
-            scores[name] = score;
+            score.GameFinishedUpdate(points);
+            scores[player] = score;
         }
 
         public void Serialize(string path)
@@ -40,7 +53,7 @@ namespace TicTacToe
             Serialization.Serialize(scores, File.Open(path, FileMode.Create));
         }
 
-        private IEnumerable<PlayerScore> SortedScores(string player1, string player2)
+        public List<PlayerScore> SortedScores()
         {
             var ranking = scores.Values.OrderBy(x => -x.Points);
             var rank = 1;
@@ -54,13 +67,13 @@ namespace TicTacToe
                 retVal = retVal.Append(entry);
             }
 
-            return retVal;
+            return retVal.ToList();
         }
 
 
         public void Display(string player1, string player2)
         {
-            var ranking = SortedScores(player1, player2);
+            var ranking = SortedScores();
           
 
             Console.WriteLine("HIGH SCORES");
