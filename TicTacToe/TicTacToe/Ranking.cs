@@ -26,26 +26,53 @@ namespace TicTacToe
         }
         public void DrawGameFinishedUpdate(string player1, string player2)
         {
-            UpdatePlayer(player1, 5);
-            UpdatePlayer(player2, 5);
+            var score1 = GetPlayerScore(player1);
+            var score2 = GetPlayerScore(player2);
+            UpdateDrawPlayerScore(score1, score2.GetSnapshot());
+            UpdateDrawPlayerScore(score2, score1.GetSnapshot());
+            scores[player1] = score1;
+            scores[player2] = score2;
         }
 
 
         public void WinnedGameFinishedUpdate(string winner, string loser)
         {
-            UpdatePlayer(winner, 10);
-            UpdatePlayer(loser, 0);
+            var winnerScore = GetPlayerScore(winner);
+            var loserScore = GetPlayerScore(loser);
+            UpdateWinnerScore(winnerScore, loserScore.GetSnapshot());
+            UpdateLoserScore(loserScore, winnerScore.GetSnapshot());
+            scores[winner] = winnerScore;
+            scores[loser] = loserScore;
         }
 
-        public void UpdatePlayer(string player, int points)
+        private PlayerScore GetPlayerScore(string player)
         {
             PlayerScore score;
             if (!scores.TryGetValue(player, out score))
             {
                 score = new PlayerScore(player);
             }
-            score.GameFinishedUpdate(points);
-            scores[player] = score;
+            return score;
+        }
+
+        private void UpdateWinnerScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
+        {
+            score.GameFinished();
+            score.Points += 10;
+            score.SumOpponentScores += opponentSnapshot.points;
+        }
+
+        private void UpdateLoserScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
+        {
+            score.GameFinished();
+            score.SumOpponentScores += opponentSnapshot.points;
+        }
+
+        private void UpdateDrawPlayerScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
+        {
+            score.GameFinished();
+            score.Points += 5;
+            score.SumOpponentScores += opponentSnapshot.points;
         }
 
         public void Serialize(string path)
@@ -55,7 +82,7 @@ namespace TicTacToe
 
         public List<PlayerScore> SortedScores()
         {
-            var ranking = scores.Values.OrderBy(x => -x.Points);
+            var ranking = scores.Values.OrderBy(x => -x.Points).ThenBy(x => -x.SumOpponentScores);
             var rank = 1;
             IEnumerable<PlayerScore> retVal = new List<PlayerScore>();
 

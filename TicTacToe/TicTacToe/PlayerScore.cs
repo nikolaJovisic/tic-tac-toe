@@ -16,21 +16,37 @@ namespace TicTacToe
         int sumOpponentDOS = 0;
         int rank = -1;
 
-        public int Points { get => points; }
         public int GamesPlayed { get => gamesPlayed; }
         public string Name { get => name; }
 
 
         public int Rank { set => rank = value; get => rank; }
 
+        public int Points { set => points = value; get => points; }
+        public int SumOpponentScores { set => sumOpponentScores = value; get => sumOpponentScores; }
+        public int SumDefeatedOpponentScores { set => sumDefeatedOpponentScores = value; get => sumDefeatedOpponentScores; }
+        public int SumOpponentSOS { set => sumOpponentSOS = value; get => sumOpponentSOS; }
+        public int SumOpponentDOS { set => sumOpponentDOS = value; get => sumOpponentDOS; }
+
         public PlayerScore(string name)
         {
             this.name = name;
         }
-        public void GameFinishedUpdate(int pointsDelta)
+        public void GameFinished()
         {
             ++gamesPlayed;
-            points += pointsDelta;
         }
+
+        public PlayerScoreSnapshot GetSnapshot()
+        {
+            PlayerScoreSnapshot snapshot;
+            snapshot.points = points;
+            snapshot.sumOpponentScores = sumOpponentScores;
+            snapshot.sumDefeatedOpponentScores = sumDefeatedOpponentScores;
+            snapshot.sumOpponentSOS = sumOpponentSOS;
+            snapshot.sumOpponentDOS = sumOpponentDOS;
+            return snapshot;
+        }
+
     }
 }
