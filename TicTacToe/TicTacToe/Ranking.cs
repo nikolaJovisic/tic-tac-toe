@@ -28,8 +28,10 @@ namespace TicTacToe
         {
             var score1 = GetPlayerScore(player1);
             var score2 = GetPlayerScore(player2);
-            UpdateDrawPlayerScore(score1, score2.GetSnapshot());
-            UpdateDrawPlayerScore(score2, score1.GetSnapshot());
+            var snapshot1 = score1.GetSnapshot();
+            var snapshot2 = score2.GetSnapshot();
+            UpdateDrawPlayerScore(score1, snapshot2);
+            UpdateDrawPlayerScore(score2, snapshot1);
             scores[player1] = score1;
             scores[player2] = score2;
         }
@@ -39,8 +41,10 @@ namespace TicTacToe
         {
             var winnerScore = GetPlayerScore(winner);
             var loserScore = GetPlayerScore(loser);
-            UpdateWinnerScore(winnerScore, loserScore.GetSnapshot());
-            UpdateLoserScore(loserScore, winnerScore.GetSnapshot());
+            var winnerSnapshot = winnerScore.GetSnapshot();
+            var loserSnapshot = loserScore.GetSnapshot();
+            UpdateWinnerScore(winnerScore, loserSnapshot);
+            UpdateLoserScore(loserScore, winnerSnapshot);
             scores[winner] = winnerScore;
             scores[loser] = loserScore;
         }
