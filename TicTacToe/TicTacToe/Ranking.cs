@@ -70,11 +70,13 @@ namespace TicTacToe
             score.GameFinished();
             score.Points += 10;
             score.SumOpponentScores += opponentSnapshot.points;
+            score.SumDefeatedOpponentScores += opponentSnapshot.points;
         }
 
         private void UpdateLoserScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
         {
             score.GameFinished();
+            score.SumOpponentScores += opponentSnapshot.points;
         }
 
         private void UpdateDrawPlayerScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
