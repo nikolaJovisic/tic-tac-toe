@@ -9,7 +9,7 @@ namespace TicTacToe
     {
         public static List<PlayerScore> Sort(ICollection<PlayerScore> scores)
         {
-            var ranking = scores.OrderBy(x => -x.Points).ThenBy(x => -x.SumOpponentScores).ThenBy(x => -x.SumDefeatedOpponentScores);
+            var ranking = scores.OrderBy(x => -x.Points).ThenBy(x => -x.SumOpponentScores).ThenBy(x => -x.SumDefeatedOpponentScores).ThenBy(x => -x.SumOpponentSOS);
             var rank = 1;
             IEnumerable<PlayerScore> retVal = new List<PlayerScore>();
 
