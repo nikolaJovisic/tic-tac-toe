@@ -100,7 +100,7 @@ namespace TicTacToeTests
             s1.SumDefeatedOpponentScores = 0;
             PlayerScore s2 = new PlayerScore(p2);
             s2.Points = 10;
-            s2.SumOpponentScores = 0;
+            s2.SumOpponentScores = 10;
             s2.SumDefeatedOpponentScores = 10;
 
             scores.Add(p1, s1);
