@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TicTacToe
 {
-    class ScoreSorter
+    public class ScoreSorter
     {
         public static List<PlayerScore> Sort(ICollection<PlayerScore> scores)
         {
