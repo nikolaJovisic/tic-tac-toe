@@ -72,6 +72,7 @@ namespace TicTacToe
             score.SumOpponentScores += opponentSnapshot.points;
             score.SumDefeatedOpponentScores += opponentSnapshot.points;
             score.SumOpponentSOS += opponentSnapshot.sumOpponentScores;
+            score.SumOpponentDOS += opponentSnapshot.sumDefeatedOpponentScores;
         }
 
         private void UpdateLoserScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
@@ -79,6 +80,7 @@ namespace TicTacToe
             score.GameFinished();
             score.SumOpponentScores += opponentSnapshot.points;
             score.SumOpponentSOS += opponentSnapshot.sumOpponentScores;
+            score.SumOpponentDOS += opponentSnapshot.sumDefeatedOpponentScores;
         }
 
         private void UpdateDrawPlayerScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
@@ -87,6 +89,7 @@ namespace TicTacToe
             score.Points += 5;
             score.SumOpponentScores += opponentSnapshot.points;
             score.SumOpponentSOS += opponentSnapshot.sumOpponentScores;
+            score.SumOpponentDOS += opponentSnapshot.sumDefeatedOpponentScores;
         }
 
         public void Serialize(string path)
