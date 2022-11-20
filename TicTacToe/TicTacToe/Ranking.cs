@@ -69,6 +69,7 @@ namespace TicTacToe
         {
             score.GameFinished();
             score.Points += 10;
+            score.SumOpponentScores += opponentSnapshot.points;
         }
 
         private void UpdateLoserScore(PlayerScore score, PlayerScoreSnapshot opponentSnapshot)
@@ -80,6 +81,7 @@ namespace TicTacToe
         {
             score.GameFinished();
             score.Points += 5;
+            score.SumOpponentScores += opponentSnapshot.points;
         }
 
         public void Serialize(string path)
