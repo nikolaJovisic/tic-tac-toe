@@ -24,6 +24,12 @@ namespace TicTacToe
                 scores = new Dictionary<string, PlayerScore>();
             }
         }
+
+        public Ranking (Dictionary<string, PlayerScore> scores)
+        {
+            this.scores = scores;
+        }
+
         public void FinishGameDraw(string player1, string player2)
         {
             var score1 = GetPlayerScore(player1);
