@@ -8,26 +8,26 @@ namespace TicTacToe
 {
     public class Ranking
     {
-        Dictionary<string, PlayerScore> scores;
+        public Dictionary<string, PlayerScore> Scores { get;  }
         public Ranking()
         {
-            scores = new Dictionary<string, PlayerScore>();
+            Scores = new Dictionary<string, PlayerScore>();
         }
         public Ranking (string path)
         {
             try
             {
-                scores = Serialization.Deserialize<Dictionary<string, PlayerScore>>(File.Open(path, FileMode.Open));
+                Scores = Serialization.Deserialize<Dictionary<string, PlayerScore>>(File.Open(path, FileMode.Open));
             }
             catch (Exception)
             {
-                scores = new Dictionary<string, PlayerScore>();
+                Scores = new Dictionary<string, PlayerScore>();
             }
         }
 
         public Ranking (Dictionary<string, PlayerScore> scores)
         {
-            this.scores = scores;
+            this.Scores = scores;
         }
 
         public void FinishGameDraw(string player1, string player2)
@@ -38,8 +38,8 @@ namespace TicTacToe
             var snapshot2 = score2.GetSnapshot();
             UpdateDrawPlayerScore(score1, snapshot2);
             UpdateDrawPlayerScore(score2, snapshot1);
-            scores[player1] = score1;
-            scores[player2] = score2;
+            Scores[player1] = score1;
+            Scores[player2] = score2;
         }
 
 
@@ -51,14 +51,14 @@ namespace TicTacToe
             var loserSnapshot = loserScore.GetSnapshot();
             UpdateWinnerScore(winnerScore, loserSnapshot);
             UpdateLoserScore(loserScore, winnerSnapshot);
-            scores[winner] = winnerScore;
-            scores[loser] = loserScore;
+            Scores[winner] = winnerScore;
+            Scores[loser] = loserScore;
         }
 
         private PlayerScore GetPlayerScore(string player)
         {
             PlayerScore score;
-            if (!scores.TryGetValue(player, out score))
+            if (!Scores.TryGetValue(player, out score))
             {
                 score = new PlayerScore(player);
             }
@@ -84,12 +84,12 @@ namespace TicTacToe
 
         public void Serialize(string path)
         {
-            Serialization.Serialize(scores, File.Open(path, FileMode.Create));
+            Serialization.Serialize(Scores, File.Open(path, FileMode.Create));
         }
 
         public List<PlayerScore> SortedScores()
         {
-            return ScoreSorter.Sort(scores.Values);
+            return ScoreSorter.Sort(Scores.Values);
         }
 
 
