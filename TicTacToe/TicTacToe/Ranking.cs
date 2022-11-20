@@ -24,7 +24,7 @@ namespace TicTacToe
                 scores = new Dictionary<string, PlayerScore>();
             }
         }
-        public void DrawGameFinishedUpdate(string player1, string player2)
+        public void FinishGameDraw(string player1, string player2)
         {
             var score1 = GetPlayerScore(player1);
             var score2 = GetPlayerScore(player2);
@@ -37,7 +37,7 @@ namespace TicTacToe
         }
 
 
-        public void WinnedGameFinishedUpdate(string winner, string loser)
+        public void FinishGameWinnerLoser(string winner, string loser)
         {
             var winnerScore = GetPlayerScore(winner);
             var loserScore = GetPlayerScore(loser);
