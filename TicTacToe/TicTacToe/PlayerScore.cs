@@ -42,6 +42,10 @@ namespace TicTacToe
         {
             PlayerScoreSnapshot snapshot;
             snapshot.points = points;
+            snapshot.sumOpponentScores = sumOpponentScores;
+            snapshot.sumDefeatedOpponentScores = sumDefeatedOpponentScores;
+            snapshot.sumOpponentSOS = sumOpponentSOS;
+            snapshot.sumOpponentDOS = sumOpponentDOS;
             return snapshot;
         }
 
