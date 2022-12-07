@@ -24,20 +24,55 @@ namespace TicTacToe
                 scores = new Dictionary<string, PlayerScore>();
             }
         }
-        public void GameFinishedUpdate(string name, int pointsDelta)
-        {
-            PlayerScore score;
-            if(!scores.TryGetValue(name, out score))
-            {
-                score = new PlayerScore(name);
-            }
-            score.GameFinishedUpdate(pointsDelta);
-            scores[name] = score;
-        }
 
         public void Serialize(string path)
         {
             Serialization.Serialize(scores, File.Open(path, FileMode.Create));
+        }
+
+        public void GameFinished(string player1, string player2, bool isDraw)
+		{
+			int loserPoints, winnerPoints = 0;
+
+			GetPoints(isDraw, out loserPoints, out winnerPoints);
+
+			PlayerScore score1 = GetCurrentScore(player1);
+			PlayerScore score2 = GetCurrentScore(player2);
+
+			var snapshotScore1 = score1;
+			var snapshotScore2 = score2;
+
+			score1.UpdatePlayerScore(winnerPoints, snapshotScore2);
+			score2.UpdatePlayerScore(loserPoints, snapshotScore1);
+
+			scores[player1] = score1;
+			scores[player2] = score2;
+		}
+
+		private static void GetPoints(bool isDraw, out int loserPoints, out int winnerPoints)
+		{
+			if (isDraw)
+			{
+				loserPoints = 5;
+				winnerPoints = 5;
+			}
+			else
+			{
+				loserPoints = 0;
+				winnerPoints = 10;
+			}
+		}
+
+
+		public PlayerScore GetCurrentScore(string player)
+        {
+            PlayerScore score;
+            if(!scores.TryGetValue(player, out score))
+            {
+                score = new PlayerScore(player);
+            }
+
+            return score;
         }
 
         private IEnumerable<PlayerScore> SortedScores(string player1, string player2)
@@ -65,7 +100,7 @@ namespace TicTacToe
 
             Console.WriteLine("HIGH SCORES");
             Console.WriteLine("------------------------------------");
-            Console.WriteLine(" RANKING | NAME | POINTS | PLAYED ");
+            Console.WriteLine(" RANKING | NAME | POINTS | PLAYED | SOS ");
 			Console.WriteLine();
 
             for (int i = 0; i < ranking.Count(); ++i)
@@ -73,15 +108,15 @@ namespace TicTacToe
                 var entry = ranking.ElementAt(i);
                 if (entry.Name.Equals(player1))
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}| <----- Player1", entry.Rank, player1, entry.Points / 10, entry.Points % 10, entry.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}| {4,-8} <----- Player1", entry.Rank, player1, entry.Points / 10, entry.Points % 10, entry.GamesPlayed, entry.SumOpponentScores));
                 }
                 else if (entry.Name.Equals(player2))
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}| <----- Player2", entry.Rank, player2, entry.Points / 10, entry.Points % 10, entry.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}| {4,-8} <----- Player2", entry.Rank, player2, entry.Points / 10, entry.Points % 10, entry.GamesPlayed, entry.SumOpponentScores));
                 }
                 else if (i < Console.WindowHeight - 6)
                 {
-                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}|", entry.Rank, entry.Name, entry.Points / 10, entry.Points % 10, entry.GamesPlayed));
+                    Console.WriteLine(string.Format(" #{0,-7}|{1,-6}|{2}.{3,-6}|{4,-8}| {4,-8}", entry.Rank, entry.Name, entry.Points / 10, entry.Points % 10, entry.GamesPlayed, entry.SumOpponentScores));
                 }
             }
             

@@ -11,20 +11,23 @@ namespace TicTacToe
         int gamesPlayed = 0;
         int rank = -1;
         string name = "";
-        public int Points { get => points; }
-        public int GamesPlayed { get => gamesPlayed; }
+        private int sumOpponentScores;
+		public int Points { get => points; }
+		public int GamesPlayed { get => gamesPlayed; }
         public string Name { get => name; }
-
         public int Rank { set => rank = value; get => rank; }
+		public int SumOpponentScores { get => sumOpponentScores; set => sumOpponentScores = value; }
 
-        public PlayerScore(string name)
+		public PlayerScore(string name)
         {
             this.name = name;
         }
-        public void GameFinishedUpdate(int pointsDelta)
+
+        public void UpdatePlayerScore(int newPoints, PlayerScore opponent)
         {
             ++gamesPlayed;
-            points += pointsDelta;
+            points += newPoints;
+            sumOpponentScores += opponent.Points;
         }
     }
 }
