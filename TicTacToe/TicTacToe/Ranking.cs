@@ -65,7 +65,7 @@ namespace TicTacToe
 
             Console.WriteLine("HIGH SCORES");
             Console.WriteLine("------------------------------------");
-            Console.WriteLine(" RANKING | NAME | POINTS | PLAYED |");
+            Console.WriteLine(" RANKING | NAME | POINTS | PLAYED ");
 			Console.WriteLine();
 
             for (int i = 0; i < ranking.Count(); ++i)
