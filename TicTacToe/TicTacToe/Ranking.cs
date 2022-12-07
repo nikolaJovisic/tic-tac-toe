@@ -6,9 +6,9 @@ using System.IO;
 
 namespace TicTacToe
 {
-    class Ranking
+    public class Ranking
     {
-        Dictionary<string, PlayerScore> scores;
+        public Dictionary<string, PlayerScore> scores;
         public Ranking()
         {
             scores = new Dictionary<string, PlayerScore>();
@@ -23,6 +23,11 @@ namespace TicTacToe
             {
                 scores = new Dictionary<string, PlayerScore>();
             }
+        }
+
+        public Ranking(Dictionary<string, PlayerScore> mockScores)
+        {
+            scores = mockScores;
         }
 
         public void Serialize(string path)
@@ -63,7 +68,6 @@ namespace TicTacToe
 			}
 		}
 
-
 		public PlayerScore GetCurrentScore(string player)
         {
             PlayerScore score;
@@ -75,7 +79,7 @@ namespace TicTacToe
             return score;
         }
 
-        private IEnumerable<PlayerScore> SortedScores(string player1, string player2)
+        public List<PlayerScore> SortedScores()
         {
             var ranking = scores.Values.OrderBy(x => -x.Points);
             var rank = 1;
@@ -89,15 +93,14 @@ namespace TicTacToe
                 retVal = retVal.Append(entry);
             }
 
-            return retVal;
+            return retVal.ToList();
         }
 
 
         public void Display(string player1, string player2)
         {
-            var ranking = SortedScores(player1, player2);
+            var ranking = SortedScores();
           
-
             Console.WriteLine("HIGH SCORES");
             Console.WriteLine("------------------------------------");
             Console.WriteLine(" RANKING | NAME | POINTS | PLAYED | SOS ");
