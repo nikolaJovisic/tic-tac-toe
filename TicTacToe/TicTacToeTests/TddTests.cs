@@ -11,7 +11,7 @@ namespace TicTacToeTests
 
 		public Dictionary<string, PlayerScore> CreateMockScores()
 		{
-			PlayerScore p1 = new PlayerScore(10, 2, "p1", 20, 20);
+			PlayerScore p1 = new PlayerScore(10, 2, "p1", 20, 0);
 			PlayerScore p2 = new PlayerScore(10, 2, "p2", 200, 200);
 
 			Dictionary<string, PlayerScore> mockScores = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
@@ -116,7 +116,7 @@ namespace TicTacToeTests
 		public void SortWithSDOS()
 		{
 			Dictionary<string, PlayerScore> mockScores = CreateMockScores();
-			mockScores["p2"].SumOpponentScores = 10;
+			mockScores["p2"].SumOpponentScores = 20;
 
 			Ranking ranking = new Ranking(mockScores);
 
