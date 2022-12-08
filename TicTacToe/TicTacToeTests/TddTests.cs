@@ -96,6 +96,23 @@ namespace TicTacToeTests
 
 		}
 
+		[Fact]
+		public void UpdateSDOS()
+		{
+			PlayerScore p1 = new PlayerScore("p1");
+			p1.Points = 100;
+			PlayerScore p2 = new PlayerScore("p2");
+			p2.Points = 10;
+			Dictionary<string, PlayerScore> mockScore = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
+
+			Ranking ranking = new Ranking(mockScore);
+
+			ranking.GameFinished("p1", "p2", false);
+
+			Assert.Equal(10, ranking.scores["p1"].SumDefeatedOpponentScores);
+		}
+
+
 
 	}
 }
