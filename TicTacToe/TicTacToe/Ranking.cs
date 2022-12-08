@@ -80,25 +80,29 @@ namespace TicTacToe
         }
 
         public List<PlayerScore> SortedScores()
-        {
-            var ranking = scores.Values.OrderBy(x => -x.Points).ThenBy(x => -x.SumOpponentScores);
-            var rank = 1;
+		{
+			var ranking = scores.Values.OrderBy(x => -x.Points).ThenBy(x => -x.SumOpponentScores);
+			var rank = 1;
 
-            IEnumerable<PlayerScore> retVal = new List<PlayerScore>();
+			IEnumerable<PlayerScore> retVal = new List<PlayerScore>();
 
-            for (int i = 0; i < ranking.Count(); ++i)
-            {
-                var entry = ranking.ElementAt(i);
-                if (i != 0 && entry.Points < ranking.ElementAt(i - 1).Points) ++rank;
-                entry.Rank = rank;
-                retVal = retVal.Append(entry);
-            }
+			SetRank(ranking, ref rank, ref retVal);
 
-            return retVal.ToList();
-        }
+			return retVal.ToList();
+		}
 
+		private static void SetRank(IOrderedEnumerable<PlayerScore> ranking, ref int rank, ref IEnumerable<PlayerScore> retVal)
+		{
+			for (int i = 0; i < ranking.Count(); ++i)
+			{
+				var entry = ranking.ElementAt(i);
+				if (i != 0 && entry.Points < ranking.ElementAt(i - 1).Points) ++rank;
+				entry.Rank = rank;
+				retVal = retVal.Append(entry);
+			}
+		}
 
-        public void Display(string player1, string player2)
+		public void Display(string player1, string player2)
         {
             var ranking = SortedScores();
           
