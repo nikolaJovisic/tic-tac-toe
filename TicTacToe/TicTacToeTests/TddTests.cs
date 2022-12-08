@@ -19,6 +19,33 @@ namespace TicTacToeTests
 			return mockScores;
 		}
 
+		[Fact]
+		public void GetPointsWinnerLoser()
+		{
+			Ranking ranking = new Ranking();
+
+			int loser = 0;
+			int winner = 0;
+
+			ranking.GetPoints(false, out loser, out winner);
+
+			Assert.Equal(10, winner);
+			Assert.Equal(0, loser);
+		}
+
+		[Fact]
+		public void GetPointsDraw()
+		{
+			Ranking ranking = new Ranking();
+
+			int loser = 0;
+			int winner = 0;
+
+			ranking.GetPoints(true, out loser, out winner);
+
+			Assert.Equal(5, winner);
+			Assert.Equal(5, loser);
+		}
 
 		[Fact]
 		public void UpdateSOSWinner()

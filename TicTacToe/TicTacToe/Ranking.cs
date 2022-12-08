@@ -37,7 +37,7 @@ namespace TicTacToe
 
         public void GameFinished(string player1, string player2, bool isDraw)
 		{
-			int loserPoints, winnerPoints = 0;
+			int loserPoints = 0, winnerPoints = 0;
 
 			GetPoints(isDraw, out loserPoints, out winnerPoints);
 
@@ -54,7 +54,7 @@ namespace TicTacToe
 			scores[player2] = score2;
 		}
 
-		private static void GetPoints(bool isDraw, out int loserPoints, out int winnerPoints)
+		public void GetPoints(bool isDraw, out int loserPoints, out int winnerPoints)
 		{
 			if (isDraw)
 			{
@@ -83,6 +83,7 @@ namespace TicTacToe
         {
             var ranking = scores.Values.OrderBy(x => -x.Points).ThenBy(x => -x.SumOpponentScores);
             var rank = 1;
+
             IEnumerable<PlayerScore> retVal = new List<PlayerScore>();
 
             for (int i = 0; i < ranking.Count(); ++i)
