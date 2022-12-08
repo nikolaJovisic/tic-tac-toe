@@ -25,12 +25,13 @@ namespace TicTacToe
             this.name = name;
         }
 
-        public PlayerScore(int points, int gamesPlayed, string name, int sumOpponentScores)
+        public PlayerScore(int points, int gamesPlayed, string name, int sumOpponentScores, int sumDefeatedOpponentScores)
         {
             this.points = points;
             this.gamesPlayed = gamesPlayed;
             this.name = name;
             this.sumOpponentScores = sumOpponentScores;
+            this.sumDefeatedOpponentScores = sumDefeatedOpponentScores;
         }
 
         public void UpdatePlayerScore(int newPoints, PlayerScore opponent)
@@ -38,6 +39,7 @@ namespace TicTacToe
             ++gamesPlayed;
             points += newPoints;
             sumOpponentScores += opponent.Points;
+            sumDefeatedOpponentScores += opponent.Points;
         }
     }
 }

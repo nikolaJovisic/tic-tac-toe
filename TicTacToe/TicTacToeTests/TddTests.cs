@@ -11,8 +11,8 @@ namespace TicTacToeTests
 
 		public Dictionary<string, PlayerScore> CreateMockScores()
 		{
-			PlayerScore p1 = new PlayerScore(10, 2, "p1", 20);
-			PlayerScore p2 = new PlayerScore(10, 2, "p2", 200);
+			PlayerScore p1 = new PlayerScore(10, 2, "p1", 20, 20);
+			PlayerScore p2 = new PlayerScore(10, 2, "p2", 200, 200);
 
 			Dictionary<string, PlayerScore> mockScores = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
 
