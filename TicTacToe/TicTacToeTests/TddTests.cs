@@ -6,55 +6,70 @@ using Xunit;
 
 namespace TicTacToeTests
 {
-    public class TddTests
-    {
-       
-        public List<PlayerScore> CreateMockScores()
-        {
-            PlayerScore p1 = new PlayerScore(10, 2, "p1", 10);
-            PlayerScore p2 = new PlayerScore(20, 2, "p2", 20);
+	public class TddTests
+	{
 
-            List<PlayerScore> mockScores = new List<PlayerScore> { p1, p2 };
+		public List<PlayerScore> CreateMockScores()
+		{
+			PlayerScore p1 = new PlayerScore(10, 2, "p1", 10);
+			PlayerScore p2 = new PlayerScore(20, 2, "p2", 20);
 
-            return mockScores;
-        }
+			List<PlayerScore> mockScores = new List<PlayerScore> { p1, p2 };
 
-
-        [Fact]
-        public void UpdateSOSWinner()
-        {
-            PlayerScore p1 = new PlayerScore("p1");
-            p1.Points = 100;
-            PlayerScore p2 = new PlayerScore("p2");
-            p2.Points = 10;
-            Dictionary<string, PlayerScore> mockScore = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
-
-            Ranking ranking = new Ranking(mockScore);
-
-            ranking.GameFinished("p1", "p2", false);
-
-            Assert.Equal(10, ranking.scores["p1"].SumOpponentScores);
-        }
+			return mockScores;
+		}
 
 
+		[Fact]
+		public void UpdateSOSWinner()
+		{
+			PlayerScore p1 = new PlayerScore("p1");
+			p1.Points = 100;
+			PlayerScore p2 = new PlayerScore("p2");
+			p2.Points = 10;
+			Dictionary<string, PlayerScore> mockScore = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
+
+			Ranking ranking = new Ranking(mockScore);
+
+			ranking.GameFinished("p1", "p2", false);
+
+			Assert.Equal(10, ranking.scores["p1"].SumOpponentScores);
+		}
+
+		[Fact]
+		public void UpdateSOSDraw()
+		{
+			PlayerScore p1 = new PlayerScore("p1");
+			p1.Points = 5;
+			PlayerScore p2 = new PlayerScore("p2");
+			p2.Points = 5;
+			Dictionary<string, PlayerScore> mockScore = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
+
+			Ranking ranking = new Ranking(mockScore);
+
+			ranking.GameFinished("p1", "p2", false);
+
+			Assert.Equal(5, ranking.scores["p1"].SumOpponentScores);
+		}
 
 
-        //[Fact]
-        //public void SortWithSOS()
-        //{
 
-        //    Ranking ranking = new Ranking();
+		//[Fact]
+		//public void SortWithSOS()
+		//{
 
-        //    ranking.GameFinished("player1", "player2", false);
+		//    Ranking ranking = new Ranking();
 
-        //    var sortedScores = ranking.SortedScores();
+		//    ranking.GameFinished("player1", "player2", false);
 
-        //    Assert.Equal("p2", sortedScores[0].Name);
-        //    Assert.Equal("p2", sortedScores[0].Name);
-            
+		//    var sortedScores = ranking.SortedScores();
 
-        //}
+		//    Assert.Equal("p2", sortedScores[0].Name);
+		//    Assert.Equal("p2", sortedScores[0].Name);
 
 
-    }
+		//}
+
+
+	}
 }
