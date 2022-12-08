@@ -41,7 +41,7 @@ namespace TicTacToe
             points += newPoints;
             sumOpponentScores += opponent.Points;
             sumDefeatedOpponentScores += opponent.Points;
-            
+            sumOpponentSOS += opponent.sumOpponentScores;
         }
 
         public void UpdatePlayerScoreLoser(int newPoints, PlayerScore opponent)
@@ -50,7 +50,7 @@ namespace TicTacToe
             points += newPoints;
             sumOpponentScores += opponent.Points;
             sumDefeatedOpponentScores += opponent.Points;
-
+            sumOpponentSOS += opponent.sumOpponentScores;
         }
 
         public void UpdatePlayerScoreDraw(int newPoints, PlayerScore opponent)
@@ -59,7 +59,7 @@ namespace TicTacToe
             points += newPoints;
             sumOpponentScores += opponent.Points;
             sumDefeatedOpponentScores += opponent.Points / 2;
-
+            sumOpponentSOS += opponent.sumOpponentScores;
         }
     }
 }
