@@ -112,6 +112,20 @@ namespace TicTacToeTests
 			Assert.Equal(10, ranking.scores["p1"].SumDefeatedOpponentScores);
 		}
 
+		[Fact]
+		public void SortWithSDOS()
+		{
+			Dictionary<string, PlayerScore> mockScores = CreateMockScores();
+			mockScores["p2"].SumOpponentScores = 10;
+
+			Ranking ranking = new Ranking(mockScores);
+
+			var sortedScores = ranking.SortedScores();
+
+			Assert.Equal("p2", sortedScores[0].Name);
+			Assert.Equal("p1", sortedScores[1].Name);
+
+		}
 
 
 	}
