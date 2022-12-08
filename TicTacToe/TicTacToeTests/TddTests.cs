@@ -9,12 +9,12 @@ namespace TicTacToeTests
 	public class TddTests
 	{
 
-		public List<PlayerScore> CreateMockScores()
+		public Dictionary<string, PlayerScore> CreateMockScores()
 		{
-			PlayerScore p1 = new PlayerScore(10, 2, "p1", 10);
-			PlayerScore p2 = new PlayerScore(20, 2, "p2", 20);
+			PlayerScore p1 = new PlayerScore(10, 2, "p1", 20);
+			PlayerScore p2 = new PlayerScore(10, 2, "p2", 200);
 
-			List<PlayerScore> mockScores = new List<PlayerScore> { p1, p2 };
+			Dictionary<string, PlayerScore> mockScores = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
 
 			return mockScores;
 		}
@@ -53,22 +53,21 @@ namespace TicTacToeTests
 		}
 
 
+		// lookup values in CreateMockScores
 
-		//[Fact]
-		//public void SortWithSOS()
-		//{
+		[Fact]
+		public void SortWithSOS()
+		{
+			Dictionary<string, PlayerScore> mockScores = CreateMockScores();
 
-		//    Ranking ranking = new Ranking();
+			Ranking ranking = new Ranking(mockScores);
 
-		//    ranking.GameFinished("player1", "player2", false);
+			var sortedScores = ranking.SortedScores();
 
-		//    var sortedScores = ranking.SortedScores();
+			Assert.Equal("p2", sortedScores[0].Name);
+			Assert.Equal("p1", sortedScores[1].Name);
 
-		//    Assert.Equal("p2", sortedScores[0].Name);
-		//    Assert.Equal("p2", sortedScores[0].Name);
-
-
-		//}
+		}
 
 
 	}
