@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TicTacToe
 {
-    [Serializable]
+	[Serializable]
     public class PlayerScore
     {
         int points = 0;
@@ -34,12 +32,31 @@ namespace TicTacToe
             this.sumDefeatedOpponentScores = sumDefeatedOpponentScores;
         }
 
-        public void UpdatePlayerScore(int newPoints, PlayerScore opponent)
+        public void UpdatePlayerScoreWinner(int newPoints, PlayerScore opponent)
         {
             ++gamesPlayed;
             points += newPoints;
             sumOpponentScores += opponent.Points;
             sumDefeatedOpponentScores += opponent.Points;
+            
+        }
+
+        public void UpdatePlayerScoreLoser(int newPoints, PlayerScore opponent)
+        {
+            ++gamesPlayed;
+            points += newPoints;
+            sumOpponentScores += opponent.Points;
+            sumDefeatedOpponentScores += opponent.Points;
+
+        }
+
+        public void UpdatePlayerScoreDraw(int newPoints, PlayerScore opponent)
+        {
+            ++gamesPlayed;
+            points += newPoints;
+            sumOpponentScores += opponent.Points;
+            sumDefeatedOpponentScores += opponent.Points / 2;
+
         }
     }
 }

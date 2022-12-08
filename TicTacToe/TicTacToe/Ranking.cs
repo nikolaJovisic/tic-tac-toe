@@ -47,9 +47,17 @@ namespace TicTacToe
 			var snapshotScore1 = score1;
 			var snapshotScore2 = score2;
 
-			score1.UpdatePlayerScore(winnerPoints, snapshotScore2);
-			score2.UpdatePlayerScore(loserPoints, snapshotScore1);
-
+            if (isDraw)
+            {
+                score1.UpdatePlayerScoreDraw(winnerPoints, snapshotScore2);
+                score2.UpdatePlayerScoreDraw(loserPoints, snapshotScore1);
+            }
+            else
+			{
+                score1.UpdatePlayerScoreWinner(winnerPoints, snapshotScore2);
+                score2.UpdatePlayerScoreLoser(loserPoints, snapshotScore1);
+            }
+			
 			scores[player1] = score1;
 			scores[player2] = score2;
 		}
