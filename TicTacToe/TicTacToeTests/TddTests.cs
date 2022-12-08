@@ -11,8 +11,8 @@ namespace TicTacToeTests
 
 		public Dictionary<string, PlayerScore> CreateMockScores()
 		{
-			PlayerScore p1 = new PlayerScore(10, 2, "p1", 20, 0, 0);
-			PlayerScore p2 = new PlayerScore(10, 2, "p2", 200, 200, 200);
+			PlayerScore p1 = new PlayerScore(10, 2, "p1", 20, 0, 0, 0);
+			PlayerScore p2 = new PlayerScore(10, 2, "p2", 200, 200, 200, 200);
 
 			Dictionary<string, PlayerScore> mockScores = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
 
@@ -158,6 +158,24 @@ namespace TicTacToeTests
 			Assert.Equal("p2", sortedScores[0].Name);
 			Assert.Equal("p1", sortedScores[1].Name);
 
+		}
+
+		[Fact]
+		public void UpdateSODOS()
+		{
+			PlayerScore p1 = new PlayerScore("p1");
+			p1.Points = 100;
+			PlayerScore p2 = new PlayerScore("p2");
+			p2.Points = 10;
+			p2.SumOpponentScores = 200;
+			p2.SumDefeatedOpponentScores = 200;
+			Dictionary<string, PlayerScore> mockScore = new Dictionary<string, PlayerScore> { { p1.Name, p1 }, { p2.Name, p2 } };
+
+			Ranking ranking = new Ranking(mockScore);
+
+			ranking.GameFinished("p1", "p2", false);
+
+			Assert.Equal(200, ranking.scores["p1"].SumOpponentDOS);
 		}
 	}
 }
